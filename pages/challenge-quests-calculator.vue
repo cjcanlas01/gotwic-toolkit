@@ -32,13 +32,13 @@
     </v-radio-group>
     <v-row v-if="selectedOption == 'default'">
       <v-col cols="7">
-        <v-select
+        <v-autocomplete
           v-model="defaultPointsRequired"
           :items="pointsRequiredDefaultOptions"
           solo
           clearable
           @change="computeTroopsCountToTrain"
-        ></v-select>
+        ></v-autocomplete>
       </v-col>
     </v-row>
     <v-row v-if="selectedOption == 'custom'">
@@ -86,6 +86,10 @@
 export default {
   data() {
     return {
+      storage: {
+        gist_id: '6cd2857ed99f6d1107859b6de2deafdf',
+        filename: 'challenge-quests-points-required.json',
+      },
       alertDuration: 1300,
       success: {
         status: false,
@@ -109,7 +113,7 @@ export default {
           value: 'custom',
         },
       ],
-      pointsRequiredDefaultOptions: [187200, 163800, 120000, 72000, 40000],
+      pointsRequiredDefaultOptions: [],
       troopTierEquivalentPoints: {
         T3: 5,
         T4: 15,
@@ -132,6 +136,17 @@ export default {
     troopsKeys() {
       return Object.keys(this.troopCountsToTrainResult)
     },
+  },
+  async created() {
+    const request = await fetch(
+      `https://api.github.com/gists/${this.storage.gist_id}`
+    )
+    const payload = await request.json()
+    const parsedPayload = JSON.parse(
+      payload.files[this.storage.filename].content
+    )
+    const { pointsRequired } = { ...parsedPayload }
+    this.pointsRequiredDefaultOptions = pointsRequired
   },
   methods: {
     saveTroopsQuantity() {
