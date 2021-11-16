@@ -3,15 +3,22 @@
     <v-alert type="error" transition="fade-transition" :value="error.status">
       {{ error.message }}
     </v-alert>
-    <span class="d-block mb-5 font-weight-bold">TROOPS QUANTITY</span>
+    <v-alert type="info" transition="fade-transition" :value="success.status">
+      {{ success.message }}
+    </v-alert>
+    <span class="d-block mb-5 font-weight-bold">TROOPS TRAINING QUANTITY</span>
     <v-row>
-      <v-col cols="7">
+      <v-col cols="6">
         <v-text-field
           v-model="troopsQuantity"
           placeholder="0"
           solo
           type="number"
+          hint="The max amount of troops that you can train."
         ></v-text-field>
+      </v-col>
+      <v-col>
+        <v-btn depressed large @click="saveTroopsQuantity"> SAVE </v-btn>
       </v-col>
     </v-row>
     <span class="d-block mb-5 font-weight-bold">POINTS REQUIRED</span>
@@ -35,7 +42,7 @@
       </v-col>
     </v-row>
     <v-row v-if="selectedOption == 'custom'">
-      <v-col>
+      <v-col cols="4">
         <v-text-field
           v-model="customPointsRequired"
           placeholder="0"
@@ -44,7 +51,10 @@
       </v-col>
       <v-col>
         <v-btn depressed large @click="computeTroopsCountToTrain">
-          Compute
+          COMPUTE
+        </v-btn>
+        <v-btn depressed large @click="clearCustomPointsRequired">
+          CLEAR
         </v-btn>
       </v-col>
     </v-row>
@@ -76,11 +86,16 @@
 export default {
   data() {
     return {
+      alertDuration: 1300,
+      success: {
+        status: false,
+        message: '',
+      },
       error: {
         status: false,
         message: '',
       },
-      troopsQuantity: '',
+      troopsQuantity: localStorage.getItem('troopsQuantity') ?? '',
       defaultPointsRequired: '',
       customPointsRequired: '',
       selectedOption: 'default',
@@ -119,6 +134,17 @@ export default {
     },
   },
   methods: {
+    saveTroopsQuantity() {
+      localStorage.setItem('troopsQuantity', this.troopsQuantity)
+      this.success.status = true
+      this.success.message = 'Troop training quantity updated!'
+      window.setTimeout(() => {
+        this.success.status = false
+      }, this.alertDuration)
+    },
+    clearCustomPointsRequired() {
+      this.clearInputs()
+    },
     clearInputs() {
       this.defaultPointsRequired = ''
       this.customPointsRequired = ''
@@ -153,7 +179,7 @@ export default {
         this.error.message = 'Insert troop quantity first!'
         window.setTimeout(() => {
           this.error.status = false
-        }, 1250)
+        }, this.alertDuration)
         return
       }
 
