@@ -37,6 +37,7 @@
           :items="pointsRequiredDefaultOptions"
           solo
           clearable
+          type="number"
           @change="computeTroopsCountToTrain"
         ></v-autocomplete>
       </v-col>
@@ -47,6 +48,7 @@
           v-model="customPointsRequired"
           placeholder="0"
           solo
+          type="number"
         ></v-text-field>
       </v-col>
       <v-col>
