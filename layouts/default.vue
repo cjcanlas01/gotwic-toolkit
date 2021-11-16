@@ -76,9 +76,14 @@ export default {
           to: '/',
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-calculator',
           title: 'Challenge Quests: Troop Calculator',
           to: '/challenge-quests-calculator',
+        },
+        {
+          icon: 'mdi-notebook-plus',
+          title: 'Bank Transport Counter',
+          to: '/bank-transport-counter',
         },
       ],
       miniVariant: false,
