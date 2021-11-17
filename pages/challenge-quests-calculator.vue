@@ -152,11 +152,10 @@ export default {
   methods: {
     saveTroopsQuantity() {
       localStorage.setItem('troopsQuantity', this.troopsQuantity)
-      const { success, duration } = { ...this.alertDetails }
+      const { success } = { ...this.alertDetails }
       this.alert({
         details: success,
         message: 'Troop training quantity updated!',
-        duration,
       })
     },
     clearCustomPointsRequired() {
@@ -192,11 +191,10 @@ export default {
         this.$nextTick(() => {
           this.clearInputs()
         })
-        const { error, duration } = { ...this.alertDetails }
+        const { error } = { ...this.alertDetails }
         this.alert({
           details: error,
           message: 'Insert troop quantity first!',
-          duration,
         })
         return
       }

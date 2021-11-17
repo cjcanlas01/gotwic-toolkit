@@ -15,7 +15,8 @@ export default {
     }
   },
   methods: {
-    alert({ details, message, duration }) {
+    alert({ details, message }) {
+      const { duration } = { ...this.alertDetails }
       details.status = true
       details.message = message
       window.setTimeout(() => {
