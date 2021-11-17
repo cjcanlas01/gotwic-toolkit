@@ -63,6 +63,11 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
+import global from '@/mixins/global'
+Vue.mixin(global)
+
 export default {
   data() {
     return {
@@ -84,6 +89,11 @@ export default {
           icon: 'mdi-notebook-plus',
           title: 'Bank Transport Counter',
           to: '/bank-transport-counter',
+        },
+        {
+          icon: 'mdi-calculator',
+          title: 'Bank Request Generator',
+          to: '/bank-request-generator',
         },
       ],
       miniVariant: false,

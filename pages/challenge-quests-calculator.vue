@@ -1,10 +1,18 @@
 <template>
   <v-container>
-    <v-alert type="error" transition="fade-transition" :value="error.status">
-      {{ error.message }}
+    <v-alert
+      type="error"
+      transition="fade-transition"
+      :value="alertDetails.error.status"
+    >
+      {{ alertDetails.error.message }}
     </v-alert>
-    <v-alert type="info" transition="fade-transition" :value="success.status">
-      {{ success.message }}
+    <v-alert
+      type="info"
+      transition="fade-transition"
+      :value="alertDetails.success.status"
+    >
+      {{ alertDetails.success.message }}
     </v-alert>
     <span class="d-block mb-5 font-weight-bold">TROOPS TRAINING QUANTITY</span>
     <v-row>
@@ -92,15 +100,6 @@ export default {
         gist_id: '6cd2857ed99f6d1107859b6de2deafdf',
         filename: 'challenge-quests-points-required.json',
       },
-      alertDuration: 1300,
-      success: {
-        status: false,
-        message: '',
-      },
-      error: {
-        status: false,
-        message: '',
-      },
       troopsQuantity: localStorage.getItem('troopsQuantity') ?? '',
       defaultPointsRequired: '',
       customPointsRequired: '',
@@ -153,11 +152,12 @@ export default {
   methods: {
     saveTroopsQuantity() {
       localStorage.setItem('troopsQuantity', this.troopsQuantity)
-      this.success.status = true
-      this.success.message = 'Troop training quantity updated!'
-      window.setTimeout(() => {
-        this.success.status = false
-      }, this.alertDuration)
+      const { success, duration } = { ...this.alertDetails }
+      this.alert({
+        details: success,
+        message: 'Troop training quantity updated!',
+        duration,
+      })
     },
     clearCustomPointsRequired() {
       this.clearInputs()
@@ -187,16 +187,17 @@ export default {
     troopsResultBreakdown(index) {
       return this.troopCountsToTrainResult[index].breakdown
     },
-    computeTroopsCountToTrain(event) {
+    computeTroopsCountToTrain() {
       if (!this.troopsQuantity) {
         this.$nextTick(() => {
           this.clearInputs()
         })
-        this.error.status = true
-        this.error.message = 'Insert troop quantity first!'
-        window.setTimeout(() => {
-          this.error.status = false
-        }, this.alertDuration)
+        const { error, duration } = { ...this.alertDetails }
+        this.alert({
+          details: error,
+          message: 'Insert troop quantity first!',
+          duration,
+        })
         return
       }
 
