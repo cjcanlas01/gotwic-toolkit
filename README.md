@@ -1,4 +1,4 @@
-# GotWiC Toolkit
+# GOTWiC Toolkit
 
 [Build Setup](build-setup.md)
 
