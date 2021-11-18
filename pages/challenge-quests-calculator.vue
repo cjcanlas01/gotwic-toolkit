@@ -46,6 +46,7 @@
           solo
           clearable
           type="number"
+          placeholder="Points required to complete the quest."
           @change="computeTroopsCountToTrain"
         ></v-autocomplete>
       </v-col>
@@ -56,6 +57,7 @@
           v-model="customPointsRequired"
           placeholder="0"
           solo
+          hint="Points required to complete the quest."
           type="number"
         ></v-text-field>
       </v-col>
