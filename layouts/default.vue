@@ -90,10 +90,15 @@ export default {
           title: 'Bank Transport Counter',
           to: '/bank-transport-counter',
         },
+        // {
+        //   icon: 'mdi-calculator',
+        //   title: 'Bank Request Generator',
+        //   to: '/bank-request-generator',
+        // },
         {
           icon: 'mdi-calculator',
-          title: 'Bank Request Generator',
-          to: '/bank-request-generator',
+          title: 'Material Calculator',
+          to: '/material-calculator',
         },
       ],
       miniVariant: false,
