@@ -6,20 +6,21 @@
     <v-simple-table>
       <thead>
         <tr>
-          <th class="text-center" width="50%">RESOURCE</th>
-          <th class="text-center">COUNTER</th>
+          <th class="text-center text-h6" width="50%">RESOURCE</th>
+          <th class="text-center text-h6">COUNTER</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in resource" :key="index">
           <td>
             <v-text-field
+              class="text-h6"
               v-model="item.counter"
               :label="item.label"
               @keyup="computeResourceCounter(index)"
             ></v-text-field>
           </td>
-          <td class="text-center">
+          <td class="text-center text-h6">
             <span>{{ item.result }}</span>
           </td>
         </tr>
