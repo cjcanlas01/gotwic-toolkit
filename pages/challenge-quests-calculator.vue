@@ -16,7 +16,7 @@
     </v-alert>
     <span class="d-block mb-5 font-weight-bold">TROOPS TRAINING QUANTITY</span>
     <v-row>
-      <v-col cols="6">
+      <v-col cols="auto" md="4">
         <v-text-field
           v-model="troopsQuantity"
           placeholder="0"
@@ -39,7 +39,7 @@
       ></v-radio>
     </v-radio-group>
     <v-row v-if="selectedOption == 'default'">
-      <v-col cols="7">
+      <v-col cols="12" md="5">
         <v-autocomplete
           v-model="defaultPointsRequired"
           :items="pointsRequiredDefaultOptions"
@@ -116,7 +116,7 @@ export default {
           value: 'custom',
         },
       ],
-      pointsRequiredDefaultOptions: [],
+      pointsRequiredDefaultOptions: [864000, 748000, 189000, 187200, 163800, 156000, 120000, 72000, 48000, 40000, 30000],
       troopTierEquivalentPoints: {
         T3: 5,
         T4: 15,
@@ -140,17 +140,17 @@ export default {
       return Object.keys(this.troopCountsToTrainResult)
     },
   },
-  async created() {
-    const request = await fetch(
-      `https://api.github.com/gists/${this.storage.gist_id}`
-    )
-    const payload = await request.json()
-    const parsedPayload = JSON.parse(
-      payload.files[this.storage.filename].content
-    )
-    const { pointsRequired } = { ...parsedPayload }
-    this.pointsRequiredDefaultOptions = pointsRequired
-  },
+  // async created() {
+  //   const request = await fetch(
+  //     `https://api.github.com/gists/${this.storage.gist_id}`
+  //   )
+  //   const payload = await request.json()
+  //   const parsedPayload = JSON.parse(
+  //     payload.files[this.storage.filename].content
+  //   )
+  //   const { pointsRequired } = { ...parsedPayload }
+  //   this.pointsRequiredDefaultOptions = pointsRequired
+  // },
   methods: {
     saveTroopsQuantity() {
       localStorage.setItem('troopsQuantity', this.troopsQuantity)
